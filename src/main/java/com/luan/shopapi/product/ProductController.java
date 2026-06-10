@@ -22,3 +22,22 @@ public class ProductController {
     public Product create(@RequestBody Product product) {
         return repository.save(product);
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        repository.deleteById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Product update(@PathVariable Long id, @RequestBody Product product) {
+        Product existing = repository.findById(id).orElseThrow();
+        existing.setName(product.getName());
+        existing.setPrice(product.getPrice());
+        return repository.save(existing);
+    }
+
+    @GetMapping("/{id}")
+    public Product getById(@PathVariable Long id) {
+        return repository.findById(id).orElseThrow();
+    }
+}
