@@ -2,6 +2,8 @@ package com.luan.shopapi.product;
 
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import jakarta.validation.Valid;
+
 
 @RestController
 @RequestMapping("/products")
