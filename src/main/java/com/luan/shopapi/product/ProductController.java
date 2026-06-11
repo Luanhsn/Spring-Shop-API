@@ -26,13 +26,13 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id, @Valid @RequestBody Product product) {
+    public void delete(@PathVariable Long id) {
         repository.deleteById(id);
     }
 
     @PutMapping("/{id}")
     public Product update(@PathVariable Long id, @RequestBody Product product) {
-        Product existing = repository.findById(id).orElseThrow();
+        Product existing = repository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
         existing.setName(product.getName());
         existing.setPrice(product.getPrice());
         return repository.save(existing);
@@ -40,6 +40,6 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public Product getById(@PathVariable Long id) {
-        return repository.findById(id).orElseThrow();
+        return repository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
     }
 }
