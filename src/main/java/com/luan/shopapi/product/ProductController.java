@@ -9,37 +9,34 @@ import jakarta.validation.Valid;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final ProductRepository repository;
+    private final ProductService service;
 
-    public ProductController(ProductRepository repository) {
-        this.repository = repository;
+    public ProductController(ProductService service) {
+        this.service = service;
     }
 
     @GetMapping
     public List<Product> getAll() {
-        return repository.findAll();
+        return service.getAll();
     }
 
     @PostMapping
     public Product create(@Valid @RequestBody Product product) {
-        return repository.save(product);
+        return service.create(product);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        repository.deleteById(id);
+        service.delete(id);
     }
 
     @PutMapping("/{id}")
     public Product update(@PathVariable Long id, @RequestBody Product product) {
-        Product existing = repository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
-        existing.setName(product.getName());
-        existing.setPrice(product.getPrice());
-        return repository.save(existing);
+        return service.update(id, product);
     }
 
     @GetMapping("/{id}")
     public Product getById(@PathVariable Long id) {
-        return repository.findById(id).orElseThrow(() -> new ProductNotFoundException(id));
+        return service.getById(id);
     }
 }
