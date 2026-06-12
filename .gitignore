@@ -1,3 +1,7 @@
+# Secrets
+.env
+application.properties
+
 # Created by https://www.toptal.com/developers/gitignore/api/java,maven,intellij
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,maven,intellij
 
